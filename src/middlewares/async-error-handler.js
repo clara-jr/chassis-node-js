@@ -3,7 +3,7 @@ https://expressjs.com/en/guide/error-handling.html
 For errors returned from asynchronous functions invoked by route handlers and middleware,
 you must pass them to the next() function, where Express will catch and process them.
 */
-function asyncErrorHandler(fn) {
+export default function (fn) {
 	return function (req, res, next) {
 		return (
 			fn(req, res, next)
@@ -13,5 +13,3 @@ function asyncErrorHandler(fn) {
 		);
 	};
 }
-
-export { asyncErrorHandler };

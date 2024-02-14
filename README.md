@@ -22,16 +22,16 @@ App is launched listening on ***8080*** port by default, set the environment var
 
 This folder contains the app source code:
 
-- `server.js`: start app environment, load config and bootstrap app services when done, init express
+- `server.js`: functions to start (and stop) app environment: load environment variables, bootstrap app services, set middlewares and when done, init express
+- `middlewares`: middlewares to be added to express (i.e. async error handler and custom error handler)
+- `routes`: routes definition
 - `controllers`: mvc controllers
-- `routes`: route definition
-- `middlewares`: to be added to express
-- `models`: app models (i.e. mongoose models)
 - `services`: application services
+- `models`: app models (i.e. mongoose models)
 
 ### test/
 
-This folder contains the tests.
+This folder contains the tests (and the `_setup.js` file to start app environment because it's not automatically started when importing `server.js` in test files).
 
 ## Environment variables
 
@@ -126,8 +126,8 @@ This project depends on some environment variables (from `.env.[environment]` fi
 
 ### Development steps
 
-1. Create `index.js`.
-2. Add routes folder and `routes.js`. Add routing middleware in `index.js`: `app.use("/", routes);`.
+1. Create `index.js` and `src/server.js`.
+2. Add routes folder and `routes.js`. Add routing middleware in `server.js`: `app.use("/", routes);`.
 3. Add controllers folder and `controller.js`.
 4. Add services folder and `service.js` file.
 5. Add mongoose models in folder models.

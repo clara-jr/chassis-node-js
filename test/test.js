@@ -1,10 +1,10 @@
 import supertest from 'supertest';
 import { expect } from 'chai';
-import app from '../index.js';
+import server from '../src/server.js';
 
 describe('Testing endpoint /', () => {
 	it('should respond with 200 OK', async () => {
-		const res = await supertest(app).get('/');
+		const res = await supertest(server.app).get('/');
 		expect(res.status).to.equal(200);
 	});
 });
