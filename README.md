@@ -6,6 +6,7 @@ Chassis for a REST API using Node.js, Express.js and MongoDB. Tests are run usin
 
 - `node` v20.11.0
 - `npm` v10.2.4
+- MongoDB running locally
 
 ## Basic Usage
 
@@ -13,6 +14,8 @@ Chassis for a REST API using Node.js, Express.js and MongoDB. Tests are run usin
 - use `npm run nodemon` to run the service in development mode (with `NODE_ENV=dev`) using nodemon.
 - use `npm run lint` for code linting.
 - use `npm test` for executing tests.
+
+I also recommend to use `ncu` to find outdated dependencies (and run `ncu -u` to upgrade `package.json`).
 
 App is launched listening on ***8080*** port by default, set the environment variable ***PORT*** to change it.
 
@@ -138,4 +141,4 @@ This project depends on some environment variables (from `.env.[environment]` fi
     docker run --name [CONTAINER_NAME] -p 8080:8080 -t -d [IMAGE_NAME]
     ```
 
-7. Configure GitHub Action in `.github/workflows/main.yaml`.
+7. Configure GitHub Action in `.github/workflows/main.yaml`. This action read the [GitHub secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) of the repository to fill the .env file with the secret called `ENV_FILE` and use the `GITHUB_TOKEN` secret to build and push a Docker image to [GitHub Packages](https://github.com/features/packages).
