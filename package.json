@@ -1,5 +1,5 @@
 {
-  "name": "chassis",
+  "name": "chassis-node-js",
   "version": "1.0.0",
   "description": "Node.js + Express.js + MongoDB chassis",
   "license": "ISC",
