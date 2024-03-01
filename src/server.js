@@ -56,22 +56,24 @@ async function stop() {
 	console.info('MongoDB disconnected.');
 
 	console.info('Exiting...');
-	process.exit(0);
 }
 
 // Docker stop
 process.on('SIGTERM', async () => {
 	await stop();
+	process.exit(0);
 });
 
 // Cctrl-C
 process.on('SIGINT', async () => {
 	await stop();
+	process.exit(0);
 });
 
 // Nodemon restart
 process.on('SIGUSR2', async () => {
 	await stop();
+	process.exit(0);
 });
 
 export default { app, start, stop };
