@@ -7,6 +7,8 @@ import dotenv from 'dotenv';
 
 import routes from './routes/routes.js';
 import customErrorHandler from './middlewares/custom-error-handler.js';
+import cacheHandler from './middlewares/cache-handler.js';
+import RedisService from './services/redis.service.js';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -20,12 +22,15 @@ async function start() {
 	// Init app services (e.g. MongoDB connection)
 	await mongoose.connect(process.env.MONGODB_URI);
 	console.info(`✅ MongoDB is connected to ${process.env.MONGODB_URI}`);
+	await RedisService.bootstrap(process.env.REDIS_URI);
+	console.info(`✅ Redis is connected to ${process.env.REDIS_URI}`);
 
 	// Add middlewares (including routes)
 	app.use(helmet()); // set HTTP response headers
 	app.use(express.json()); // for parsing application/json
 	app.use(cors()); // enable CORS
 	app.use(cookieParser()); // set req.cookies
+	app.use(cacheHandler);
 	app.use('/', routes);
 	app.use(customErrorHandler);
 
@@ -53,7 +58,9 @@ async function stop() {
 
 	// Stop app services (e.g. MongoDB connection)
 	await mongoose.disconnect();
-	console.info('MongoDB disconnected.');
+	console.info('MongoDB disconnected');
+	RedisService.disconnect();
+	console.info('Redis disconnected');
 
 	console.info('Exiting...');
 }
