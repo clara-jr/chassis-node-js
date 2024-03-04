@@ -1,19 +1,19 @@
 import server from '../src/server.js';
 
 before(async () => {
-	console.log('🤖 Launching server before running tests...');
+	console.info('🤖 Launching server before running tests...');
 	try {
 		await server.start();
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 	}
 });
 
 after(async () => {
-	console.log('🤖 Stopping server after running tests...');
+	console.info('🤖 Stopping server after running tests...');
 	try {
 		await server.stop();
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 	}
 });
