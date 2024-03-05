@@ -7,6 +7,7 @@ Chassis for a REST API using Node.js, Express.js and MongoDB. Tests are run usin
 - `node` v20.11.0
 - `npm` v10.2.4
 - MongoDB running locally
+- Redis running locally
 
 ## Basic Usage
 
