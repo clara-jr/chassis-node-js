@@ -4,8 +4,8 @@ export default async function (req, res, next) {
 	// only cache GET requests
 	if (req.method !== 'GET') return next();
 
-	const key = `chassis-node-js-${req.originalUrl}`;
-
+	const key = `chassis-node-js-${req.jwtUser.userName}-${req.originalUrl}`;
+	
 	// Get data from cache
 	try {
 		let cachedData = await RedisService.get(key);

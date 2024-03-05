@@ -8,7 +8,9 @@ import dotenv from 'dotenv';
 import routes from './routes/routes.js';
 import customErrorHandler from './middlewares/custom-error-handler.js';
 import cacheHandler from './middlewares/cache-handler.js';
+import authenticationHandler from './middlewares/authentication-handler.js';
 import RedisService from './services/redis.service.js';
+import JWTService from './services/jwt.service.js';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -24,12 +26,14 @@ async function start() {
 	console.info(`✅ MongoDB is connected to ${process.env.MONGODB_URI}`);
 	await RedisService.bootstrap(process.env.REDIS_URI);
 	console.info(`✅ Redis is connected to ${process.env.REDIS_URI}`);
+	JWTService.bootstrap();
 
 	// Add middlewares (including routes)
 	app.use(helmet()); // set HTTP response headers
 	app.use(express.json()); // for parsing application/json
 	app.use(cors()); // enable CORS
 	app.use(cookieParser()); // set req.cookies
+	app.use(authenticationHandler);
 	app.use(cacheHandler);
 	app.use('/', routes);
 	app.use(customErrorHandler);

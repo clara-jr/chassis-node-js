@@ -7,8 +7,11 @@ export default function (err, req, res, next) {
 	if (res.headersSent) {
 		return next(err);
 	}
+  
+	if (!(err instanceof ApiError) && err.name === 'ValidationError') err = new ApiError(400, 'VALIDATION_ERROR', err.message);
 
-	let { status, errorCode = 'UNKNOWN_ERROR', message = 'Unknown error', payload } = err;
+	const { errorCode = 'UNKNOWN_ERROR', message = 'Unknown error' } = err;
+	let { status } = err;
 
 	// If the status code is outside the 4xx or 5xx range, set it to 500
 	if (!Number.isInteger(status) || status < 400 || status > 599) {
@@ -20,5 +23,15 @@ export default function (err, req, res, next) {
 		console.error(err.stack);
 	}
 
-	res.status(status).json({ status, errorCode, message, payload });
+	res.status(status).json({ status, errorCode, message });
+}
+
+export class ApiError extends Error {
+	constructor(status = 500, errorCode = 'UNKNOWN_ERROR', message = 'Api error') {
+		super();
+		this.status = status;
+		this.errorCode = errorCode;
+		this.message = message;
+		Error.captureStackTrace(this, ApiError);
+	}
 }
