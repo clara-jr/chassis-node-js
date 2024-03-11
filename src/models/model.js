@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const { Schema } = mongoose;
+const { Schema, model } = mongoose;
 const ObjectId = Schema.Types.ObjectId;
 
 const ModelSchema = new Schema({
@@ -36,6 +36,6 @@ const ModelSchema = new Schema({
 	},
 });
 
-const Model = mongoose.model('Models', ModelSchema);
+const Model = model('Model', ModelSchema, 'models');
 
 export default Model;
