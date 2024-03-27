@@ -9,6 +9,7 @@ import routes from './routes/routes.js';
 import customErrorHandler from './middlewares/custom-error-handler.js';
 import cacheHandler from './middlewares/cache-handler.js';
 import authenticationHandler from './middlewares/authentication-handler.js';
+import setOpenAPIDocumentation from './middlewares/openapi-docs-handler.js';
 import RedisService from './services/redis.service.js';
 import JWTService from './services/jwt.service.js';
 
@@ -18,7 +19,9 @@ const PORT = process.env.PORT || 8080;
 let server;
 
 async function start() {
-  dotenv.config({ path: `.env${process.env.NODE_ENV ? `.${process.env.NODE_ENV}` : ''}` });
+  dotenv.config({
+    path: `.env${process.env.NODE_ENV ? `.${process.env.NODE_ENV}` : ''}`,
+  });
   console.info(`NODE_ENV: ${process.env.NODE_ENV}`);
 
   // Init app services (e.g. MongoDB connection)
@@ -33,6 +36,7 @@ async function start() {
   app.use(express.json()); // for parsing application/json
   app.use(cors()); // enable CORS
   app.use(cookieParser()); // set req.cookies
+  setOpenAPIDocumentation(app); // set openapi documentation
   app.use(authenticationHandler);
   app.use(cacheHandler);
   app.use('/', routes);
