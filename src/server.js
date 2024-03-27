@@ -10,6 +10,7 @@ import customErrorHandler from './middlewares/custom-error-handler.js';
 import cacheHandler from './middlewares/cache-handler.js';
 import authenticationHandler from './middlewares/authentication-handler.js';
 import setOpenAPIDocumentation from './middlewares/openapi-docs-handler.js';
+import setMorganLogger from './middlewares/morgan-logger-handler.js';
 import RedisService from './services/redis.service.js';
 import JWTService from './services/jwt.service.js';
 
@@ -36,6 +37,7 @@ async function start() {
   app.use(express.json()); // for parsing application/json
   app.use(cors()); // enable CORS
   app.use(cookieParser()); // set req.cookies
+  setMorganLogger(app); // set morgan logger
   setOpenAPIDocumentation(app); // set openapi documentation
   app.use(authenticationHandler);
   app.use(cacheHandler);
