@@ -1,19 +1,20 @@
 import server from '../src/server.js';
+import { styleText } from 'node:util';
 
 before(async () => {
-  console.info('🤖 Launching server before running tests...');
+  console.info(styleText('bgWhiteBright', '🤖 Launching server before running tests...'));
   try {
     await server.start();
   } catch (error) {
-    console.error(error);
+    console.error(styleText('bgRedBright', error));
   }
 });
 
 after(async () => {
-  console.info('🤖 Stopping server after running tests...');
+  console.info(styleText('bgWhiteBright', '🤖 Stopping server after running tests...'));
   try {
     await server.stop();
   } catch (error) {
-    console.error(error);
+    console.error(styleText('bgRedBright', error));
   }
 });
