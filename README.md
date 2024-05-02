@@ -4,8 +4,8 @@ Chassis for a REST API using Node.js, Express.js, MongoDB and Redis. Tests are r
 
 ## Requirements
 
-- `node` v20.11.0
-- `npm` v10.2.4
+- `node` v22.1.0
+- `npm` v10.7.0
 - MongoDB running locally
 - Redis running locally
 
@@ -55,8 +55,8 @@ This project depends on some environment variables (from `.env.[environment]` fi
 
     ```json
     "engines": {
-      "node": ">=20.11.0",
-      "npm": ">=10.2.4"
+      "node": ">=22.1.0",
+      "npm": ">=10.7.0"
     }
     ```
 
