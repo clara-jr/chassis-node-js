@@ -10,13 +10,12 @@
     "lint": "npx eslint . --ext js,json",
     "lint:fix": "npx eslint . --ext js,json --fix",
     "lint:quiet": "npx eslint . --ext js,json --quiet",
-    "nodemon": "NODE_ENV=dev nodemon ./index.js",
     "pre-commit": "npx lint-staged",
     "pre-commit-msg": "npx --no -- commitlint --edit ${1}",
     "pre-push": "NODE_ENV=test npx c8 --all mocha",
     "prepare": "husky",
     "start": "node ./index.js",
-    "start:dev": "NODE_ENV=dev node ./index.js",
+    "start:dev": "NODE_ENV=dev node --watch ./index.js",
     "test": "NODE_ENV=test npx c8 --all mocha",
     "test:report": "NODE_ENV=test npx c8 --all --reporter=html -reporter=text mocha"
   },
@@ -44,7 +43,6 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "mocha": "^10.4.0",
-    "nodemon": "^3.1.0",
     "supertest": "^7.0.0"
   },
   "engines": {

@@ -85,10 +85,4 @@ process.on('SIGINT', async () => {
   process.exit(0);
 });
 
-// Nodemon restart
-process.on('SIGUSR2', async () => {
-  await stop();
-  process.exit(0);
-});
-
 export default { app, start, stop };
