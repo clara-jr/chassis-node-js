@@ -11,9 +11,9 @@ Chassis for a REST API using Node.js, Express.js, MongoDB and Redis. Tests are r
 
 ## Basic Usage
 
-- use `npm run start:dev` to run the service in development (and watch) mode (with `NODE_ENV=dev`).
-- use `npm run lint` for code linting.
-- use `npm test` for executing tests.
+- use `node --run start:dev` to run the service in development (and watch) mode (with `NODE_ENV=dev`).
+- use `node --run lint` for code linting.
+- use `node --run test` for executing tests.
 
 I also recommend to use `ncu` to find outdated dependencies (and run `ncu -u` to upgrade `package.json`).
 
@@ -112,19 +112,19 @@ This project depends on some environment variables (from `.env.[environment]` fi
 14. Create `.husky/pre-commit` file to insert command that should be executed before making a commit. This file looks like this:
 
     ```bash
-    npm run pre-commit
+    node --run pre-commit
     ```
 
 15. Create `.husky/pre-commit-msg` file to insert command that should be executed to check the commit message. This file looks like this:
 
     ```bash
-    npm run pre-commit-msg
+    node --run pre-commit-msg
     ```
 
 16. Create `.husky/pre-push` file to insert command that should be executed before pushing a commit. This file looks like this:
 
     ```bash
-    npm run pre-push
+    node --run pre-push
     ```
 
     If tests fail, commit won't be pushed.
