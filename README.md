@@ -11,8 +11,7 @@ Chassis for a REST API using Node.js, Express.js, MongoDB and Redis. Tests are r
 
 ## Basic Usage
 
-- use `npm run start:dev` to run the service in development mode (with `NODE_ENV=dev`).
-- use `npm run nodemon` to run the service in development mode (with `NODE_ENV=dev`) using nodemon.
+- use `npm run start:dev` to run the service in development (and watch) mode (with `NODE_ENV=dev`).
 - use `npm run lint` for code linting.
 - use `npm test` for executing tests.
 
@@ -62,10 +61,9 @@ This project depends on some environment variables (from `.env.[environment]` fi
 
     Also add `"type": "module"` in order to use `import` instead of `require`.
 2. Install express and mongoose: `npm install express mongoose`. Install also ioredis for caching purposes, and jsonwebtoken and uuid to create an authentication middleware for securing endpoints: `npm install ioredis jsonwebtoken uuid`.
-3. Install dev dependencies such as testing ones (supertest, c8, mocha, chai), linter (eslint, eslint-plugin-json-format) and nodemon:
+3. Install dev dependencies such as testing ones (supertest, c8, mocha, chai), linter (eslint, eslint-plugin-json-format):
     - `npm install --save-dev supertest c8 mocha chai`
     - `npm install --save-dev eslint eslint-plugin-json-format`
-    - `npm install --save-dev nodemon`
 4. Configure eslint: `npx eslint --init`.
 5. Check the eslint configuration, `.eslintrc.json` file should have:
 
@@ -89,12 +87,11 @@ This project depends on some environment variables (from `.env.[environment]` fi
 
 6. Create Mocha configuration file `.mocharc.json`. With `exit: true` the server is stopped after executing tests (without the need to click Ctrl+C).
 7. Create test coverage configuration file `.c8rc.json`. The params set will be needed for the tests to pass successfully.
-8. Create nodemon configuration file `nodemon.json` including the files that should be ignored when being updated.
-9. Create npm configuration file `.npmrc` with `engine-strict=true` in order to notify with an error alert when trying to install/test/start something without the correct Node.js and npm versions.
-10. Initialize git repository: `git init`. Add `.gitignore` file.
-11. Install [Husky](https://typicode.github.io/husky/how-to.html) to execute linter fixes and check tests before a commit is created or pushed: `npm install --save-dev husky`. Install husky git hooks (only once): `npx husky init` and add it to `package.json` script called `prepare`. If you want to make a commit skipping husky pre-commit git hooks you can use `git commit -m "..." -n`; the same occurs when you want to skip pre-push hooks: `git push --no-verify`.
-12. Install `lint-staged` to check linting only in staged files before making a commit: `npm install --save-dev lint-staged`. Add configuration file `.lintstagedrc`.
-13. Install [CommitLint](https://github.com/conventional-changelog/commitlint) dev dependencies to apply Conventional Commits: `npm install --save-dev @commitlint/cli @commitlint/config-conventional` and create its configuration file `.commitlintrc.json`:
+8. Create npm configuration file `.npmrc` with `engine-strict=true` in order to notify with an error alert when trying to install/test/start something without the correct Node.js and npm versions.
+9. Initialize git repository: `git init`. Add `.gitignore` file.
+10. Install [Husky](https://typicode.github.io/husky/how-to.html) to execute linter fixes and check tests before a commit is created or pushed: `npm install --save-dev husky`. Install husky git hooks (only once): `npx husky init` and add it to `package.json` script called `prepare`. If you want to make a commit skipping husky pre-commit git hooks you can use `git commit -m "..." -n`; the same occurs when you want to skip pre-push hooks: `git push --no-verify`.
+11. Install `lint-staged` to check linting only in staged files before making a commit: `npm install --save-dev lint-staged`. Add configuration file `.lintstagedrc`.
+12. Install [CommitLint](https://github.com/conventional-changelog/commitlint) dev dependencies to apply Conventional Commits: `npm install --save-dev @commitlint/cli @commitlint/config-conventional` and create its configuration file `.commitlintrc.json`:
 
     ```json
     {
@@ -104,7 +101,7 @@ This project depends on some environment variables (from `.env.[environment]` fi
     }
     ```
 
-14. Add `pre-commit`, `pre-push` and `pre-commit-msg` scripts to be run with husky git hooks:
+13. Add `pre-commit`, `pre-push` and `pre-commit-msg` scripts to be run with husky git hooks:
 
     ```json
     "pre-commit": "npx lint-staged",
@@ -112,19 +109,19 @@ This project depends on some environment variables (from `.env.[environment]` fi
     "pre-push": "npx NODE_ENV=test c8 --all mocha",
     ```
 
-15. Create `.husky/pre-commit` file to insert command that should be executed before making a commit. This file looks like this:
+14. Create `.husky/pre-commit` file to insert command that should be executed before making a commit. This file looks like this:
 
     ```bash
     npm run pre-commit
     ```
 
-16. Create `.husky/pre-commit-msg` file to insert command that should be executed to check the commit message. This file looks like this:
+15. Create `.husky/pre-commit-msg` file to insert command that should be executed to check the commit message. This file looks like this:
 
     ```bash
     npm run pre-commit-msg
     ```
 
-17. Create `.husky/pre-push` file to insert command that should be executed before pushing a commit. This file looks like this:
+16. Create `.husky/pre-push` file to insert command that should be executed before pushing a commit. This file looks like this:
 
     ```bash
     npm run pre-push
