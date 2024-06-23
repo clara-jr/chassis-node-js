@@ -60,7 +60,7 @@ iniciar una instancia de MongoDB en memoria que se puede usar durante las prueba
     }
     ```
 
-    Also add `"type": "module"` in order to use `import` instead of `require`.
+    Also add `"type": "module"` in order to use `import` ([ECMAScript modules](https://nodejs.org/api/esm.html)) instead of `require` ([CommonJS modules](https://nodejs.org/api/modules.html)).
 2. Install express and mongoose: `npm install express mongoose`. Install also ioredis for caching purposes, and jsonwebtoken and uuid to create an authentication middleware for securing endpoints: `npm install ioredis jsonwebtoken uuid`.
 3. Install dev dependencies such as testing ones (supertest, c8, mocha, chai), linter (eslint, eslint-plugin-json-format):
     - `npm install --save-dev supertest c8 mocha chai`
