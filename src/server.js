@@ -15,7 +15,6 @@ import RedisService from './services/redis.service.js';
 import JWTService from './services/jwt.service.js';
 
 const app = express();
-const PORT = process.env.PORT || 8080;
 
 let server;
 
@@ -44,6 +43,7 @@ async function start() {
 
   // Start Express server
   await new Promise((resolve) => {
+    const PORT = process.env.PORT || 8080;
     server = app.listen(PORT, () => {
       console.info(`✅ Express server listening at port: ${styleText(['bgGreenBright', 'bold'], `${PORT}`)}`);
       resolve(true);
