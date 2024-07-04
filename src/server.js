@@ -11,6 +11,7 @@ import cacheHandler from './middlewares/cache-handler.js';
 import authenticationHandler from './middlewares/authentication-handler.js';
 import setOpenAPIDocumentation from './middlewares/openapi-docs-handler.js';
 import setMorganLogger from './middlewares/morgan-logger-handler.js';
+import asyncErrorHandler from './middlewares/async-error-handler.js';
 import RedisService from './services/redis.service.js';
 import JWTService from './services/jwt.service.js';
 
@@ -37,7 +38,7 @@ async function start() {
   setMorganLogger(app); // set morgan logger
   setOpenAPIDocumentation(app); // set openapi documentation
   app.use(authenticationHandler);
-  app.use(cacheHandler);
+  app.use(asyncErrorHandler(cacheHandler));
   app.use('/', routes);
   app.use(customErrorHandler);
 

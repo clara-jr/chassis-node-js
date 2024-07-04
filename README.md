@@ -45,7 +45,15 @@ This project depends on some environment variables (from `.env.[environment]` fi
 iniciar una instancia de MongoDB en memoria que se puede usar durante las pruebas y que se cierra automáticamente cuando las pruebas terminan.
 - `REDIS_URI`: Redis connection URI used to store cached data returned by the API endpoints.
 - `JWT_SECRET`: The secret to [sign and verify JWTs](https://www.npmjs.com/package/jsonwebtoken).
+- `JWT_AUDIENCE`: Audience to [sign and verify JWTs](https://www.npmjs.com/package/jsonwebtoken).
+- `JWT_ISSUER`: Issuer to [sign and verify JWTs](https://www.npmjs.com/package/jsonwebtoken).
 - `UUID_NAMESPACE`: Namespace for auto-generating UUIDs to use as [JWT](https://en.wikipedia.org/wiki/JSON_Web_Token)'s JTI.
+- `USERNAME`: Mocked user name.
+- `PASSWORD`: Mocked user password.
+- `SALT_ROUNDS`: To encrypt passwords.
+- `UNPROTECTED_ROUTES`: List of unprotected routes.
+- `ACCESSTOKEN_TTL`: Access token expiration.
+- `REFRESHTOKEN_TTL`: Refresh token and Redis session expiration.
 
 ## How was this chassis created?
 
@@ -61,7 +69,7 @@ iniciar una instancia de MongoDB en memoria que se puede usar durante las prueba
     ```
 
     Also add `"type": "module"` in order to use `import` ([ECMAScript modules](https://nodejs.org/api/esm.html)) instead of `require` ([CommonJS modules](https://nodejs.org/api/modules.html)).
-2. Install express and mongoose: `npm install express mongoose`. Install also ioredis for caching purposes, and jsonwebtoken and uuid to create an authentication middleware for securing endpoints: `npm install ioredis jsonwebtoken uuid`.
+2. Install express and mongoose: `npm install express mongoose`. Install also ioredis for caching purposes, and jsonwebtoken and uuid to create an authentication middleware for securing endpoints: `npm install ioredis jsonwebtoken uuid`. Install also `bcrypt` to encrypt users' passwords.
 3. Install dev dependencies such as testing ones (supertest, c8, mocha, chai), linter (eslint, eslint-plugin-json-format):
     - `npm install --save-dev supertest c8 mocha chai`
     - `npm install --save-dev eslint eslint-plugin-json-format`

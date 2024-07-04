@@ -1,5 +1,6 @@
 import express from 'express';
 const router = express.Router();
+import AuthRouter from './authentication.routes.js';
 import Controller from '../controllers/controller.js';
 import asyncErrorHandler from '../middlewares/async-error-handler.js';
 
@@ -75,6 +76,7 @@ import asyncErrorHandler from '../middlewares/async-error-handler.js';
  *         description: Validation Error
  */
 router
+  .use('/auth', AuthRouter)
   .get('/', asyncErrorHandler(Controller.getAll))
   .post('/', asyncErrorHandler(Controller.create));
 
