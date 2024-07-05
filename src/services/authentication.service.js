@@ -41,8 +41,8 @@ async function refreshSession(refreshToken) {
  * @param {string} token Token to be destroyed.
  * @returns {Promise<void>}
  */
-async function logout(token) {
-  await JWTService.clearSessionData(token);
+async function logout(accessToken) {
+  await JWTService.clearSessionData(accessToken);
 }
 
 export default {

@@ -5,7 +5,7 @@ export default async function authenticationHandler(req, res, next) {
   if (unprotectedRoutes.includes(req.path)) {
     return next();
   }
-  const token = req.cookies.accessToken;
+  const token = req.cookies?.accessToken;
   try {
     const { sessionData: jwtUser } = await JWTService.verifyToken(token);
     req.jwtUser = jwtUser;

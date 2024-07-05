@@ -25,13 +25,13 @@ async function login(req, res) {
 }
 
 async function refreshSession(req, res) {
-  const tokens = await AuthenticationService.refreshSession(req.cookies.refreshToken);
+  const tokens = await AuthenticationService.refreshSession(req.cookies?.refreshToken);
   _setCookie(res, tokens);
   res.sendStatus(200);
 }
 
 async function logout(req, res) {
-  await AuthenticationService.logout(req.cookies.accessToken);
+  await AuthenticationService.logout(req.cookies?.accessToken);
 
   res.clearCookie('accessToken');
   res.clearCookie('refreshToken');
