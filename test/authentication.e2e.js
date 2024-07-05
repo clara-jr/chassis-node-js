@@ -40,7 +40,7 @@ describe('Test', () => {
   describe('POST /auth/refresh', () => {
     describe('when refreshToken is invalid', () => {
       it('should respond with 401 UNAUTHORIZED', async () => {
-        const res = await supertest(server.app).post('/auth/refresh').set('Cookie', ['accessToken=invalid', 'refreshToken=invalid']);
+        const res = await supertest(server.app).post('/auth/refresh').set('Cookie', ['refreshToken=invalid']);
         expect(res.status).to.equal(401);
         expect(res.error).to.exist;
         expect(res.body.errorCode).to.equal('UNAUTHORIZED');
@@ -48,7 +48,7 @@ describe('Test', () => {
     });
     describe('when refreshToken is valid', () => {
       it('should respond with 200 OK', async () => {
-        const res = await supertest(server.app).post('/auth/refresh').set('Cookie', [`accessToken=${accessToken}`, `refreshToken=${refreshToken}`]);
+        const res = await supertest(server.app).post('/auth/refresh').set('Cookie', [`refreshToken=${refreshToken}`]);
         expect(res.status).to.equal(200);
         const cookies = res.headers['set-cookie'];
         expect(cookies).to.be.an('array');
@@ -60,7 +60,7 @@ describe('Test', () => {
 
   describe('POST /auth/logout', () => {
     it('should logout successfully and clear cookies', async () => {
-      const res = await supertest(server.app).post('/auth/logout').set('Cookie', [`accessToken=${accessToken}`, `refreshToken=${refreshToken}`]);
+      const res = await supertest(server.app).post('/auth/logout').set('Cookie', [`accessToken=${accessToken}`]);
       expect(res.status).to.equal(200);
       const cookies = res.headers['set-cookie'];
       expect(cookies).to.be.an('array');

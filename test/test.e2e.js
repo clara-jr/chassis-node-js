@@ -8,10 +8,10 @@ import Model from '../src/models/model.js';
 import JWTService from '../src/services/jwt.service.js';
 
 describe('Test', () => {
-  let accessToken, refreshToken;
+  let accessToken;
 
   before(async () => {
-    ({ accessToken, refreshToken } = await JWTService.createToken({ userName: 'test' }));
+    ({ accessToken } = await JWTService.createToken({ userName: 'test' }));
   });
 
   after(async () => {
@@ -39,7 +39,7 @@ describe('Test', () => {
       it('should respond with 200 OK', async () => {
         const res = await supertest(server.app)
           .get('/')
-          .set('Cookie', [`accessToken=${accessToken}`, `refreshToken=${refreshToken}`]);
+          .set('Cookie', [`accessToken=${accessToken}`]);
         expect(res.status).to.equal(200);
         expect(res.body).to.have.length(1);
         expect(res.body[0].index.toString()).to.equal(model.index.toString());
@@ -53,7 +53,7 @@ describe('Test', () => {
       it('should respond with 400 VALIDATION_ERROR', async () => {
         const res = await supertest(server.app)
           .post('/')
-          .set('Cookie', [`accessToken=${accessToken}`, `refreshToken=${refreshToken}`])
+          .set('Cookie', [`accessToken=${accessToken}`])
           .send({ index: 1 });
         expect(res.status).to.equal(400);
         expect(res.error).to.exist;
@@ -65,7 +65,7 @@ describe('Test', () => {
       it('should respond with 201 CREATED', async () => {
         const res = await supertest(server.app)
           .post('/')
-          .set('Cookie', [`accessToken=${accessToken}`, `refreshToken=${refreshToken}`])
+          .set('Cookie', [`accessToken=${accessToken}`])
           .send(model);
         expect(res.status).to.equal(201);
         expect(res.body.index.toString()).to.equal(model.index.toString());
