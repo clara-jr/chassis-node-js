@@ -1,20 +1,11 @@
-import Model from '../models/model.js';
+import repository from '../repositories/repository.js';
 
-/**
- * Retrieves all items from the database.
- * @returns {Promise<Array>} A promise that resolves to an array of items.
- */
 async function getAll() {
-  return Model.find();
+  return repository.getAll();
 }
 
-/**
- * Creates a new item in the database.
- * @param {*} data The data for the new item.
- * @returns {Promise<Object>} A promise that resolves to the created item.
- */
 async function create(data) {
-  return Model.create(data);
+  return repository.create(data);
 }
 
 export default {
