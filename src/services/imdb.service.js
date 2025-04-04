@@ -3,7 +3,7 @@ const TTL = 60; // 1 min (60 s)
 
 async function bootstrap(service, config) {
   IMDBService = service;
-  IMDBService.bootstrap(config);
+  await IMDBService.bootstrap(config);
 }
 
 async function get(key) {
