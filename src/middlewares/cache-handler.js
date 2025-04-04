@@ -1,4 +1,4 @@
-import RedisService from '../services/redis.service.js';
+import IMDBService from '../services/imdb.service.js';
 
 export default async function (req, res, next) {
   // only cache GET requests
@@ -8,7 +8,7 @@ export default async function (req, res, next) {
 	
   // Get data from cache
   try {
-    let cachedData = await RedisService.get(key);
+    let cachedData = await IMDBService.get(key);
     if (cachedData) {
       return res.status(200).json(JSON.parse(cachedData));
     }
@@ -22,7 +22,7 @@ export default async function (req, res, next) {
   res.send = (body) => {
     try {
       const data = JSON.parse(body);
-      if (!data.errorCode) RedisService.setex(key, data);
+      if (!data.errorCode) IMDBService.setex(key, data);
     } catch (error) {
       console.info('⚠️ Error parsing or caching data');
       console.error(error);

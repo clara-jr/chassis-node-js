@@ -11,8 +11,9 @@ import cacheHandler from './middlewares/cache-handler.js';
 import authenticationHandler from './middlewares/authentication-handler.js';
 import setOpenAPIDocumentation from './middlewares/openapi-docs-handler.js';
 import setMorganLogger from './middlewares/morgan-logger-handler.js';
-import RedisService from './services/redis.service.js';
+import IMDBService from './services/imdb.service.js';
 import JWTService from './services/jwt.service.js';
+import redisService from './services/redis.service.js';
 
 const app = express();
 
@@ -25,7 +26,7 @@ async function start() {
   // Init app services (e.g. MongoDB connection)
   await mongoose.connect(process.env.MONGODB_URI);
   console.info(`✅ MongoDB is connected to ${styleText(['bgGreenBright', 'bold'], process.env.MONGODB_URI)}`);
-  await RedisService.bootstrap(process.env.REDIS_URI);
+  await IMDBService.bootstrap(redisService, { uri: process.env.REDIS_URI });
   console.info(`✅ Redis is connected to ${styleText(['bgGreenBright', 'bold'], process.env.REDIS_URI)}`);
   JWTService.bootstrap();
 
@@ -67,7 +68,7 @@ async function stop() {
   // Stop app services (e.g. MongoDB connection)
   await mongoose.disconnect();
   console.info(styleText('dim', 'MongoDB disconnected'));
-  RedisService.disconnect();
+  IMDBService.disconnect();
   console.info(styleText('dim', 'Redis disconnected'));
 
   console.info(styleText('dim', 'Exiting...'));
