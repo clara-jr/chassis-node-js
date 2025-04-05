@@ -1,4 +1,4 @@
-import repository from '../repositories/repository.js';
+import repository from '../repositories/example.repository.js';
 
 async function getAll() {
   return repository.getAll();

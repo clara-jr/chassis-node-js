@@ -1,5 +1,5 @@
-import Service from '../services/service.js';
-import schema from '../dtos/dto.js';
+import Service from '../services/example.service.js';
+import schema from '../dtos/example.dto.js';
 
 async function getAll(req, res) {
   const data = await Service.getAll(req);

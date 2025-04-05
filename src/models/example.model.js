@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 const ObjectId = Schema.Types.ObjectId;
 
-const ModelSchema = new Schema({
+const ExampleSchema = new Schema({
   index: { type: ObjectId, unique: true, required: true, index: true },
   sparseIndex: { type: String, sparse: true },
   string: String,
@@ -36,6 +36,6 @@ const ModelSchema = new Schema({
   },
 });
 
-const Model = model('Model', ModelSchema, 'models');
+const ExampleModel = model('Example', ExampleSchema, 'examples');
 
-export default Model;
+export default ExampleModel;

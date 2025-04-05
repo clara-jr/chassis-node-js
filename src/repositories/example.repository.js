@@ -1,4 +1,4 @@
-import Model from '../models/model.js';
+import Model from '../models/example.model.js';
 
 /**
  * Retrieves all items from the database.
