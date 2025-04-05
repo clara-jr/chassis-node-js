@@ -14,6 +14,9 @@ import setMorganLogger from './middlewares/morgan-logger-handler.js';
 import IMDBService from './services/imdb.service.js';
 import JWTService from './services/jwt.service.js';
 import redisService from './services/redis.service.js';
+import mongoRepository from './repositories/mongo.repository.js';
+import exampleRepository from './repositories/example.repository.js';
+import ExampleModel from './models/example.model.js';
 
 const app = express();
 
@@ -41,6 +44,9 @@ async function start() {
   app.use(cacheHandler);
   app.use('/', routes);
   app.use(customErrorHandler);
+
+  // Bootstrap repositories
+  exampleRepository.bootstrap(mongoRepository, ExampleModel);
 
   // Start Express server
   await new Promise((resolve) => {

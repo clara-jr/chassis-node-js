@@ -1,23 +1,16 @@
-import Model from '../models/example.model.js';
+const repository = {
+  bootstrap: async (_repository, Model) => {
+    Object.assign(repository,  _repository(Model));
 
-/**
- * Retrieves all items from the database.
- * @returns {Promise<Array>} A promise that resolves to an array of items.
- */
-async function getAll() {
-  return Model.find();
-}
-
-/**
- * Creates a new item in the database.
- * @param {*} data The data for the new item.
- * @returns {Promise<Object>} A promise that resolves to the created item.
- */
-async function create(data) {
-  return Model.create(data);
-}
-
-export default {
-  getAll,
-  create,
+    // Specific methods
+    const fields = [
+      { path: 'user', select: 'fullName' },
+    ];
+    repository.findAndPopulate = async (filter) => {
+      const results = await repository.find(filter);
+      return repository.populate(results, fields);
+    };
+  }
 };
+
+export default repository;
