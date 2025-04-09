@@ -1,15 +1,14 @@
 const repository = {
-  bootstrap: async (_repository, Model) => {
-    Object.assign(repository,  _repository(Model));
-
-    // Specific methods
+  bootstrap: (repoImpl, Model) => {
+    Object.assign(repository,  repoImpl(Model));
+  },
+  // Specific methods
+  findAndPopulate: async (filter) => {
     const fields = [
       { path: 'user', select: 'fullName' },
     ];
-    repository.findAndPopulate = async (filter) => {
-      const results = await repository.find(filter);
-      return repository.populate(results, fields);
-    };
+    const results = await repository.find(filter);
+    return repository.populate(results, fields);
   }
 };
 
